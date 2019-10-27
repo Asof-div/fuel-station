@@ -47,7 +47,7 @@ class ProfileController extends Controller
 
         ]);
 
-        if ($validator {
+        if ($validator) {
             return $validator;
         }
 
@@ -55,7 +55,7 @@ class ProfileController extends Controller
         $user->save();
 
         return $this->success([
-            'user' => $user
+            'user' => $user,
             'msg' => 'Password successfully updated'
         ]);
    }

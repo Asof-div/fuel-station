@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\User;
 use App\Traits\APIResponseTrait;
 
 class UserController extends Controller
@@ -114,7 +115,7 @@ class UserController extends Controller
     public function delete($id)
     {
 
-        $user = User::with(['profile'])->find($id);
+        $user = User::find($id);
         
         return $this->handleDelete($user);
     }
