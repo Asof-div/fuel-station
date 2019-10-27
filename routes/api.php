@@ -30,15 +30,15 @@ Route::group(['namespace' => 'API', ], function () {
 
     Route::group(['prefix' => 'app'], function () {
 
-	    Route::prefix('dispenser')->group(base_path('routes/api/dispenser.php'));
+	    Route::prefix('dispensers')->group(base_path('routes/api/dispenser.php'));
 	    
-	    Route::prefix('fuel')->group(base_path('routes/api/fuel.php'));
+	    Route::prefix('fuels')->group(base_path('routes/api/fuel.php'));
 	    
 	    Route::prefix('profile')->group(base_path('routes/api/profile.php'));
 	    
-	    Route::prefix('tank')->group(base_path('routes/api/tank.php'));
+	    Route::prefix('tanks')->group(base_path('routes/api/tank.php'));
 
-	    Route::prefix('user')->group(base_path('routes/api/user.php'));
+	    Route::prefix('users')->group(base_path('routes/api/user.php'));
 
 
     });

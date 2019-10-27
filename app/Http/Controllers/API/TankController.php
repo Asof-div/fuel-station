@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Tank;
 use App\Traits\APIResponseTrait;
 
 class TankController extends Controller

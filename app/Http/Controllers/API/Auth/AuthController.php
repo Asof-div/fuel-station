@@ -30,7 +30,6 @@ class AuthController extends Controller
 		        
         $credentials = $request->only('email', 'password');
         
-		$credentials['active'] = true;
 		if (!Auth::attempt($credentials)) {
 			return $this->error('Invalid Login Credentials!', 401);
 		}
@@ -80,7 +79,7 @@ class AuthController extends Controller
         if ($validator) {
             return $validator;
         }
-        
+
         $user->password = Hash::make($request->password);
         $user->save();
         
