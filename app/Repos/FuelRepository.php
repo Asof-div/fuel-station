@@ -8,10 +8,10 @@ use Facades\App\Repos\TankRepository;
 
 class FuelRepository {
 
-	public function getFuelsWithRelativeModels($date = null ) {
-		$date = $date == null ? Carbon::today() : Carbon::createFromFormat('Y-m-d', $date);
+	public function getAll($date) {
+		$date = $date ? Carbon::instance($date)->format('Y-m-d') : Carbon::today()->format('Y-m-d');
 		
-		return Fuel::with(['tank', 'dispenser'])->get();
+		return Fuel::whereDate('transaction_date', 'like', $date)->with(['tank', 'dispenser'])->get();
 
 	}
 

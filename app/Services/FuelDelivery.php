@@ -2,12 +2,16 @@
 
 namespace App\Services;
 
+use App\Models\Fuel;
 use App\Models\Tank;
 use Facades\App\Repos\DispenserRepository;
 use Facades\App\Repos\FuelRepository;
 use Facades\App\Repos\TankRepository;
 use Auth;
 use Carbon\Carbon;
+use App\Exports\FuelDeliveryExport;
+use App\Imports\FuelDeliveryImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FuelDelivery {
 
@@ -36,11 +40,26 @@ class FuelDelivery {
 			return $fuel;
 		}
 
-		return null;
+		return 'Invalid Input';
 	}
 
 	public function tankSpace(Tank $tank, $litre){
 
 		return $tank->volume - ($litre + $tank->fuel_level);
+	}
+
+
+	public function upload($file){
+		$importer = new FuelDeliveryImport;
+        Excel::import($importer, $file);
+        return $importer->getStatusMessage();
+	}
+
+
+	public function template(){
+		$collections = (new Fuel)->newCollection();
+
+        Excel::store(new FuelDeliveryExport($collections), 'fuel_delivery_template.xlsx');
+        return storage_path('app/fuel_delivery_template.xlsx');
 	}
 }

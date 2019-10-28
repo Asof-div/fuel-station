@@ -5,6 +5,9 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Http\Resources\FuelResource;
+
+use App\Models\Fuel;
 use App\Repos\FuelRepository;
 use App\Services\FuelDelivery;
 use App\Services\FuelDispenser;
@@ -14,12 +17,13 @@ class FuelController extends Controller
 {
     use APIResponseTrait;
     
-            public function index(FuelRepository $fuelRepos)
+    public function index(Request $request, FuelRepository $fuelRepos)
     {
-        $dispensers = $fuelRepos->getFuelsWithRelativeModels(); 
+		$date = new \DateTime($request->date);
+        $fuels = $fuelRepos->getAll($date); 
 
         $response = $this->success([
-            'dispensers' => $dispensers
+            'fuels' => FuelResource::collection($fuels)
         ]);
 
         return $response;
@@ -29,15 +33,19 @@ class FuelController extends Controller
     	$validator = $this->handleValidation([
     		'litre' => 'required|numeric',
     		'tank_id' => 'required|exists:tanks,id',
+    		'date' => 'date|nullable',
     	]);
 
     	if($validator){
     		return $validator;
     	}
 
-    	$fuel = $deliveryService->delivery($request->tank_id, $request->litre, $request->user()->id, new \DateTime );
+    	$result = $deliveryService->delivery($request->tank_id, $request->litre, $request->user()->id, new \DateTime($request->date) );
+    	if($result instanceof Fuel){
+	        return $this->handleAddResponse($result);   
+    	}
 
-        return $this->handleAddResponse($fuel);   
+    	return $this->error($result);
     }
     
     
@@ -45,31 +53,90 @@ class FuelController extends Controller
     	$validator = $this->handleValidation([
     		'litre' => 'required|numeric',
     		'dispenser_id' => 'required|exists:tanks,id',
+    		'date' => 'date|nullable',
     	]);
 
     	if($validator){
     		return $validator;
     	}
 
-    	$fuel = $dispenserService->dispense($request->dispenser_id, $request->litre, $request->user()->id, new \DateTime );
+    	$result = $dispenserService->dispense($request->dispenser_id, $request->litre, $request->user()->id, new \DateTime($request->date) );
 
-        return $this->handleAddResponse($fuel);   
+	  	if($result instanceof Fuel){
+	        return $this->handleAddResponse($result);   
+    	}
+
+    	return $this->error($result); 
     }
-        /**
+
+    
+    public function uploadDispense(Request $request, FuelDispenser $dispenserService){
+    	$validator = $this->handleValidation([
+    		'file' => 'required|mimes:xls,xlsx',
+    	]);
+
+    	if($validator){
+    		return $validator;
+    	}
+        $file = $request->file;
+
+    	$result = $dispenserService->upload($file );
+
+    	return $this->success(['result' => $result]); 
+    }
+
+    public function uploadDelivery(Request $request, FuelDelivery $deliveryService){
+    	$validator = $this->handleValidation([
+    		'file' => 'required|mimes:xls,xlsx',
+    	]);
+
+    	if($validator){
+    		return $validator;
+    	}
+        $file = $request->file;
+
+    	$result = $deliveryService->upload($file);
+
+    	return $this->success(['result' => $result]); 
+    }
+
+
+     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(FuelRepository $fuelRepos, $id)
+    public function show(FuelRepository $fuelRepos, int $id)
     {
         
-        $dispenser = $fuelRepos->find($id);
+        $fuel = $fuelRepos->find($id);
 
-        return $this->handleShow($dispenser);
+        return $this->handleShow($fuel);
     }
 
 
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deliveryTemplate(Request $request, FuelDelivery $deliveryService)
+    {
+        return response()->download($deliveryService->template());
+    }
+
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dispenserTemplate(Request $request, FuelDispenser $dispenserService)
+    {
+        return response()->download($dispenserService->template());
+    }
 
 
 }

@@ -2,12 +2,16 @@
 
 namespace App\Services;
 
+use App\Models\Fuel;
 use App\Models\Tank;
 use Facades\App\Repos\DispenserRepository;
 use Facades\App\Repos\FuelRepository;
 use Facades\App\Repos\TankRepository;
 use Auth;
 use Carbon\Carbon;
+use App\Exports\FuelDispenserExport;
+use App\Imports\FuelDispenserImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FuelDispenser {
 
@@ -30,7 +34,20 @@ class FuelDispenser {
 			return $fuel;
 		}
 
-		return null;
+		return 'Tank fuel level is lower than requested litre.';
+	}
+
+	public function upload($file){
+		$importer = new FuelDispenserImport;
+        Excel::import($importer, $file);
+        return $importer->getStatusMessage();
+	}
+
+
+	public function template(){
+		$collections = (new Fuel)->newCollection();
+		$file = Excel::store(new FuelDispenserExport($collections), 'fuel_dispenser_template.xlsx');
+        return storage_path('app/fuel_dispenser_template.xlsx');
 	}
 
 }

@@ -10,7 +10,9 @@ class TankRepository {
 
 	public function getTanksWithRelativeModels() {
 
-		return Tank::with(['dispensers', 'fuels', 'fuel'])->get();
+		return Tank::with(['dispensers', 'fuels' =>  function($query){
+			$query->whereDate('transaction_date', 'like', Carbon::today()->format('Y-m-d'));
+		}, 'fuel'])->get();
 
 	}
 
@@ -31,6 +33,13 @@ class TankRepository {
 		return Tank::with(['dispensers', 'fuels' =>  function($query){
 			$query->whereDate('transaction_date', 'like', Carbon::today()->format('Y-m-d'));
 		}, 'fuel'])->find($id);
+	}
+
+	public function findByName(string $name){
+		
+		return Tank::with(['dispensers', 'fuels' =>  function($query){
+			$query->whereDate('transaction_date', 'like', Carbon::today()->format('Y-m-d'));
+		}, 'fuel'])->whereName($name)->first();
 	}
 
 	public function loadFuelsByDate(int $id, $date){

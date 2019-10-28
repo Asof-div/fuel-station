@@ -17,6 +17,8 @@ class TankResource extends Resource {
         unset($parent['fuels']);
         unset($parent['fuel']);
         unset($parent['dispensers']);
+        unset($parent['created_at']);
+        unset($parent['updated_at']);
         $deliver = $this->fuels->reduce(function($sum, $fuel){
 		            	if($fuel->direction == 'Delivery'){
 		            		return $sum + $fuel->litre;

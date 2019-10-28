@@ -33,6 +33,13 @@ class DispenserRepository {
 		}])->find($id);
 	}
 
+	public function findByName(string $name){
+		
+		return Dispenser::with(['tank', 'fuels' =>  function($query){
+			$query->whereDate('transaction_date', 'like', Carbon::today()->format('Y-m-d'));
+		}])->whereName($name)->first();
+	}
+
 	public function loadFuelsByDate(int $id, $date){
 
 		$date = $date ? Carbon::instance($date) : Carbon::today();
