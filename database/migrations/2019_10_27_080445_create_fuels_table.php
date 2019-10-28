@@ -20,9 +20,9 @@ class CreateFuelsTable extends Migration
             $table->bigInteger('dispenser_id')->nullable()->index()->unsigned();
             $table->bigInteger('user_id')->nullable()->index()->unsigned();
             $table->bigInteger('last_fuel_id')->index()->nullable()->unsigned();
-            $table->decimal('leter', 18,2)->default(0.00);
-            $table->decimal('previous_leter')->default(0.00);
-            $table->decimal('current_leter')->default(0.00);
+            $table->decimal('litre', 18,2)->default(0.00);
+            $table->decimal('previous_litre')->default(0.00);
+            $table->decimal('current_litre')->default(0.00);
             $table->timestamp('transaction_date')->nullable();
             $table->timestamps();
 

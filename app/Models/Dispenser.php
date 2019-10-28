@@ -17,7 +17,7 @@ class Dispenser extends Model
     }
 
     public function fuels(){
-    	return $this->hasMany(Fuel::class, 'fuel_id');
+    	return $this->hasMany(Fuel::class, 'dispenser_id');
     }
 
 }

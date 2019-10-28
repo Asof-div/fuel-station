@@ -18,6 +18,7 @@ class CreateTanksTable extends Migration
             $table->string('name');
             $table->decimal('volume');
             $table->decimal('fuel_level')->default(0.00);
+            $table->bigInteger('last_fuel_id')->nullable()->unsigned();
             $table->timestamps();
         });
     }

@@ -18,6 +18,10 @@ class Tank extends Model
     	return $this->hasMany(Fuel::class, 'tank_id');
     }
 
+    public function fuel(){
+    	return $this->belongsTo(Fuel::class, 'last_fuel_id');
+    }
+
 
 
 

@@ -6,9 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:api'], function() {
 
     Route::get('/', 'FuelController@index');
-    Route::post('/', 'FuelController@store');
+    Route::post('/delivery', 'FuelController@fuelDelivery');
+    Route::post('/dispense', 'FuelController@fuelDispenser');
     Route::get('/{id}', 'FuelController@show');
-    Route::match(['put', 'patch'], '/{id}', 'FuelController@update');
-	Route::delete('/{id}', 'FuelController@delete');
 
 });
