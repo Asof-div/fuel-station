@@ -1,0 +1,797 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "adeyinkab24@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/fuel-station/public",
+            "description": "Fuel Station API Server"
+        }
+    ],
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login User",
+                "description": "Login User",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "User email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "description": "User Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User successfully autheticated"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "delete": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login User",
+                "description": "Login User",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/auth/user": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get Current Authenticated User",
+                "description": "Get Current Authenticated User",
+                "operationId": "getAuthUser",
+                "responses": {
+                    "200": {
+                        "description": "User details"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/dispensers": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Dispensers",
+                "description": "Get Dispensers",
+                "operationId": "getUser",
+                "responses": {
+                    "200": {
+                        "description": "Dispensers"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Dispenser"
+                ],
+                "summary": "Get Dispensers",
+                "description": "Get Dispensers",
+                "operationId": "addDispenser",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Dispenser name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tank_id",
+                        "in": "path",
+                        "description": "Tank id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dispensers"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/dispensers/{id}": {
+            "get": {
+                "tags": [
+                    "Dispenser"
+                ],
+                "summary": "Get Dispenser",
+                "description": "Get Dispenser",
+                "operationId": "getDispenser",
+                "responses": {
+                    "200": {
+                        "description": "Dispenser"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Dispenser"
+                ],
+                "summary": "Edit Dispenser",
+                "description": "Edit Dispenser",
+                "operationId": "editDispenser",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Dispenser name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tank_id",
+                        "in": "path",
+                        "description": "Tank id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dispensers"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Dispenser"
+                ],
+                "summary": "Delete Dispenser",
+                "description": "Delete Dispenser",
+                "operationId": "deleteDispenser",
+                "responses": {
+                    "200": {
+                        "description": "Dispensers"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/dispensers/report/{id}": {
+            "get": {
+                "tags": [
+                    "Dispenser"
+                ],
+                "summary": "Get Dispenser Report",
+                "description": "Get Dispenser Report",
+                "operationId": "getDispenserReport",
+                "responses": {
+                    "200": {
+                        "description": "Dispenser"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/tanks": {
+            "get": {
+                "tags": [
+                    "Tank"
+                ],
+                "summary": "Get tanks",
+                "description": "Get tanks",
+                "operationId": "getTanks",
+                "responses": {
+                    "200": {
+                        "description": "tanks"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tank"
+                ],
+                "summary": "Add tank",
+                "description": "Add tank",
+                "operationId": "addTank",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Tank name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "volume",
+                        "in": "path",
+                        "description": "Tank size",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "tanks"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/tanks/{id}": {
+            "get": {
+                "tags": [
+                    "Tank"
+                ],
+                "summary": "Get Tank",
+                "description": "Get Tank",
+                "operationId": "getTank",
+                "responses": {
+                    "200": {
+                        "description": "Tank"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tank"
+                ],
+                "summary": "Edit tank",
+                "description": "Edit tank",
+                "operationId": "editTank",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Tank name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "volume",
+                        "in": "path",
+                        "description": "size of the tank",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "tanks"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tank"
+                ],
+                "summary": "Delete tank",
+                "description": "Delete tank",
+                "operationId": "deleteTank",
+                "responses": {
+                    "200": {
+                        "description": "tank"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/tanks/report/{id}": {
+            "get": {
+                "tags": [
+                    "Tank"
+                ],
+                "summary": "Get Tank Report",
+                "description": "Get Tank Report",
+                "operationId": "getTankReport",
+                "responses": {
+                    "200": {
+                        "description": "Tank"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Users",
+                "description": "Return Users Attached To Tenant",
+                "operationId": "getUsers",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create new user",
+                "description": "Return user data",
+                "operationId": "createNewUser",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Firstname and Lastname ",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "description": "Password ",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "path",
+                        "description": "Retry password",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
+        "/api/app/users/{id}": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create new user",
+                "description": "Return user data",
+                "operationId": "editUser",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Firstname and Lastname ",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create new user",
+                "description": "Return user data",
+                "operationId": "deleteUser",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
+        "/api/app/fuels": {
+            "get": {
+                "tags": [
+                    "Fuel"
+                ],
+                "summary": "Get fuels",
+                "description": "Get fuels",
+                "operationId": "getFuels",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "filter by date",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "fuels"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/fuels/delivery-template": {
+            "get": {
+                "tags": [
+                    "Fuel"
+                ],
+                "summary": "Download delivery template",
+                "description": "Download delivery template",
+                "operationId": "downloadDeliveryTemplate",
+                "responses": {
+                    "200": {
+                        "description": "Fuel"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/fuels/dispenser-template": {
+            "get": {
+                "tags": [
+                    "Fuel"
+                ],
+                "summary": "Download dispenser template",
+                "description": "Download dispenser template",
+                "operationId": "downloadDisperserTemplate",
+                "responses": {
+                    "200": {
+                        "description": "Fuel"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/fuels/{id}": {
+            "get": {
+                "tags": [
+                    "Fuel"
+                ],
+                "summary": "Get Fuel Report",
+                "description": "Get Fuel Report",
+                "operationId": "getFuel",
+                "responses": {
+                    "200": {
+                        "description": "Fuel"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/fuels/delivery-upload": {
+            "post": {
+                "tags": [
+                    "Fuel"
+                ],
+                "summary": "Add Fuel",
+                "description": "Add Fuel",
+                "operationId": "uploadDelivery",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "path",
+                        "description": "Excel file",
+                        "required": true,
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "fuels"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/fuels/dispense-upload": {
+            "post": {
+                "tags": [
+                    "Fuel"
+                ],
+                "summary": "Add Fuel",
+                "description": "Add Fuel",
+                "operationId": "uploadDispense",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "path",
+                        "description": "Excel file",
+                        "required": true,
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "fuels"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/fuels/delivery": {
+            "post": {
+                "tags": [
+                    "Fuel"
+                ],
+                "summary": "Add Fuel",
+                "description": "Add Fuel",
+                "operationId": "addDelivery",
+                "parameters": [
+                    {
+                        "name": "tank_id",
+                        "in": "path",
+                        "description": "Tank id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "litre",
+                        "in": "path",
+                        "description": "Litre",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Date",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "fuels"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/app/fuels/dispense": {
+            "post": {
+                "tags": [
+                    "Fuel"
+                ],
+                "summary": "Add Fuel",
+                "description": "Add Fuel",
+                "operationId": "addDispense",
+                "parameters": [
+                    {
+                        "name": "dispenser_id",
+                        "in": "path",
+                        "description": "Dispenser id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "litre",
+                        "in": "path",
+                        "description": "Litre",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Date",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "fuels"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Password Based": {
+                "type": "oauth2",
+                "description": "Use a global client_id / client_secret and your username / password combo to obtain a token",
+                "in": "header",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "/oauth/authorize",
+                        "tokenUrl": "/oauth/token",
+                        "refreshUrl": "/oauth/token/refresh",
+                        "scopes": []
+                    }
+                },
+                "scheme": "https"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "project",
+            "description": "Everything about your Projects",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        },
+        {
+            "name": "user",
+            "description": "Operations about user",
+            "externalDocs": {
+                "description": "Find out more about",
+                "url": "http://swagger.io"
+            }
+        }
+    ],
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}

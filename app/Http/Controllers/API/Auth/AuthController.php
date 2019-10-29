@@ -67,23 +67,4 @@ class AuthController extends Controller
 		]);
 	}
 
-	public function changePassword(Request $request)
-	{
-		$user = User::find($request->user()->id);
-
-		$validator = $this->handleValidation([
-            'current_password' => 'required|validpassword:'.$user->password,
-            'password' => 'required|alphanum|min:4|max:8|confirmed',
-        ]);
-
-        if ($validator) {
-            return $validator;
-        }
-
-        $user->password = Hash::make($request->password);
-        $user->save();
-        
-        return $this->success(['msg' => 'Your password is has been changed']);
-	}
-
 }
